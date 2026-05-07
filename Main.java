@@ -2,49 +2,58 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Vector<Integer> vector = new Vector<>();
+        ArrayList<Integer> list = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        boolean running = true;
+        int choice;
 
-        System.out.println("Демонстрація роботи");
-
-        while (running) {
-            System.out.println("\nПоточний вектор: " + vector);
-            System.out.println("Size: " + vector.size() + " | Capacity: " + vector.capacity());
-            System.out.println("Меню: 1. Додати в кінець 2. Додати за індексом 3. Видалити 4. Отримати 5. Вихід");
-            System.out.print("Вибір: ");
+        while (true) {
+            System.out.println("1.Додати в кінець");
+            System.out.println("2.Додати за індексом");
+            System.out.println("3.Видалити за індексом");
+            System.out.println("4.Отримати за індексом");
+            System.out.println("5.Кількість елементів (size)");
+            System.out.println("6.Місткість буфера (capacity)");
+            System.out.println("7.Показати весь список");
+            System.out.println("0.Вихід");
+            System.out.print("Виберіть дію: ");
 
             try {
-                int choice = scanner.nextInt();
-                switch (choice) {
-                    case 1:
-                        System.out.print("Введіть число: ");
-                        vector.add(scanner.nextInt());
-                        break;
-                    case 2:
-                        System.out.print("Введіть індекс та число: ");
-                        vector.add(scanner.nextInt(), scanner.nextInt());
-                        break;
-                    case 3:
-                        System.out.print("Введіть індекс для видалення: ");
-                        vector.remove(scanner.nextInt());
-                        break;
-                    case 4:
-                        System.out.print("Введіть індекс: ");
-                        int idx = scanner.nextInt();
-                        System.out.println("Елемент за індексом " + idx + " = " + vector.get(idx));
-                        break;
-                    case 5:
-                        running = false;
-                        break;
-                    default:
-                        System.out.println("Невірний вибір!");
+                choice = Integer.parseInt(scanner.nextLine());
+                if (choice == 1) {
+                    System.out.print("Введіть число: ");
+                    int val = Integer.parseInt(scanner.nextLine());
+                    list.add(val);
+                } else if (choice == 2) {
+                    System.out.print("Введіть індекс: ");
+                    int idx = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Введіть число: ");
+                    int val = Integer.parseInt(scanner.nextLine());
+                    list.add(idx, val);
+                } else if (choice == 3) {
+                    System.out.print("Введіть індекс для видалення: ");
+                    int idx = Integer.parseInt(scanner.nextLine());
+                    list.remove(idx);
+                } else if (choice == 4) {
+                    System.out.print("Введіть індекс: ");
+                    int idx = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Результат: " + list.get(idx));
+                } else if (choice == 5) {
+                    System.out.println("Елементів у списку: " + list.getSize());
+                } else if (choice == 6) {
+                    System.out.println("Розмір буфера: " + list.getCapacity());
+                } else if (choice == 7) {
+                    System.out.println("Список: " + list.toString());
+                } else if (choice == 0) {
+                    break;
                 }
-            } catch (Exception e) {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("Помилка: " + e.getMessage());
-                scanner.nextLine();
+            } catch (NumberFormatException e) {
+                System.out.println("Помилка, вводьте тільки числа");
+            } catch (Exception e) {
+                System.out.println("Сталася помилка");
             }
         }
-        System.out.println("Програму завершено.");
+        scanner.close();
     }
 }
